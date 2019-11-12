@@ -13,8 +13,12 @@ abstract class BaseActivity<VB: ViewDataBinding> : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, layoutRes)
-        binding.lifecycleOwner = this
+        onDataBinding()
         setupView()
+    }
+
+    open fun onDataBinding() {
+        binding.lifecycleOwner = this
     }
 
     open fun setupView() {

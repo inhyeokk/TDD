@@ -1,32 +1,46 @@
 package com.rkddlsgur983.test.view.main
 
-import android.os.Bundle
-import android.view.View
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.rkddlsgur983.test.R
 import com.rkddlsgur983.test.base.BaseActivity
 import com.rkddlsgur983.test.databinding.ActivityMainBinding
+import com.rkddlsgur983.test.view.main.adapter.WeatherAdapter
+import com.rkddlsgur983.test.view.main.data.MainRepositoryImpl
 
 class MainActivity: BaseActivity<ActivityMainBinding>() {
 
     override val layoutRes = R.layout.activity_main
-    private lateinit var mainViewModel: MainViewModel
+    private val mainViewModel = MainViewModel(MainRepositoryImpl())
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setupView()
+    override fun onDataBinding() {
+        // mainViewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
+        binding.vm = mainViewModel
+        super.onDataBinding()
     }
 
     override fun setupView() {
-
-        mainViewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
-        mainViewModel.observeText().observe(this, Observer {
-            binding.btnMain.text = it
-        })
+        super.setupView()
+        initRecyclerViewWeather()
     }
 
-    fun onButtonClick(v: View) {
-        mainViewModel.setText()
+    private fun initRecyclerViewWeather() {
+
+        val linearLayoutManager = LinearLayoutManager(this)
+        val decoration = DividerItemDecoration(
+            binding.rcvWeather.context,
+            linearLayoutManager.orientation
+        )
+        val weatherAdapter = WeatherAdapter()
+        binding.rcvWeather.apply {
+            layoutManager = linearLayoutManager
+            adapter = weatherAdapter
+            addItemDecoration(decoration)
+        }
+
+        mainViewModel.observeWeatherItem().observeForever {
+            weatherAdapter.addAll(it)
+        }
+        mainViewModel.requestWeather()
     }
 }
