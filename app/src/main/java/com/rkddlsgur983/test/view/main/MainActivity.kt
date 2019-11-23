@@ -1,11 +1,13 @@
 package com.rkddlsgur983.test.view.main
 
+import android.view.inputmethod.EditorInfo
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.rkddlsgur983.test.R
 import com.rkddlsgur983.test.base.BaseActivity
 import com.rkddlsgur983.test.databinding.ActivityMainBinding
-import com.rkddlsgur983.test.view.main.adapter.WeatherAdapter
+import com.rkddlsgur983.test.view.main.adapter.KakaoWebAdapter
 import com.rkddlsgur983.test.view.main.data.MainRepositoryImpl
 
 class MainActivity: BaseActivity<ActivityMainBinding>() {
@@ -21,26 +23,40 @@ class MainActivity: BaseActivity<ActivityMainBinding>() {
 
     override fun setupView() {
         super.setupView()
-        initRecyclerViewWeather()
+        initEdSearch()
+        initRecyclerView()
     }
 
-    private fun initRecyclerViewWeather() {
+    private fun initEdSearch() {
+        binding.edSearch.setOnEditorActionListener { _, actionId, _ ->
+            when (actionId) {
+                EditorInfo.IME_ACTION_SEARCH -> {
+                    mainViewModel.requestKakaoWeb(binding.edSearch.text.toString())
+                    true
+                }
+                else -> {
+                    false
+                }
+            }
+        }
+    }
+
+    private fun initRecyclerView() {
 
         val linearLayoutManager = LinearLayoutManager(this)
         val decoration = DividerItemDecoration(
-            binding.rcvWeather.context,
+            binding.recyclerView.context,
             linearLayoutManager.orientation
         )
-        val weatherAdapter = WeatherAdapter()
-        binding.rcvWeather.apply {
+        val kakaoWebAdapter = KakaoWebAdapter()
+        binding.recyclerView.apply {
             layoutManager = linearLayoutManager
-            adapter = weatherAdapter
+            adapter = kakaoWebAdapter
             addItemDecoration(decoration)
         }
 
-        mainViewModel.observeWeatherItem().observeForever {
-            weatherAdapter.addAll(it)
-        }
-        mainViewModel.requestWeather()
+        mainViewModel.observeKakaoWebItem().observe(this, Observer {
+            kakaoWebAdapter.addAll(it)
+        })
     }
 }

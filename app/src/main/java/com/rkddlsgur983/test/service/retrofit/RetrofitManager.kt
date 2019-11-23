@@ -1,5 +1,6 @@
 package com.rkddlsgur983.test.service.retrofit
 
+import com.rkddlsgur983.test.service.kakao.KakaoConst
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Response
@@ -12,7 +13,6 @@ import java.util.concurrent.TimeUnit
 
 object RetrofitManager {
 
-    private const val API_URL = "https://samples.openweathermap.org/"
     private const val ALL_TIMEOUT = 10L
 
     private var okHttpClient: OkHttpClient
@@ -31,24 +31,23 @@ object RetrofitManager {
         }.build()
 
         retrofit = Retrofit.Builder().apply {
-            baseUrl(API_URL)
+            baseUrl(KakaoConst.URL)
             client(okHttpClient)
             addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             addConverterFactory(GsonConverterFactory.create())
         }.build()
     }
 
-    private class HeaderSettingInterceptor : Interceptor {
+    private class HeaderSettingInterceptor: Interceptor {
 
         @Throws(IOException::class)
         override fun intercept(chain: Interceptor.Chain): Response {
 
             val chainRequest = chain.request()
-
             val request = chainRequest.newBuilder().apply{
                 addHeader("Content-Type", "application/x-www-form-urlencoded")
+                addHeader("Authorization", "KakaoAK " + KakaoConst.KEY)
             }.build()
-
             return chain.proceed(request)
         }
     }
