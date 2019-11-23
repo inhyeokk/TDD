@@ -19,13 +19,15 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 class MainViewModel(private val repo: MainRepository): BaseViewModel() {
 
     private val TAG = MainViewModel::class.java.name
-    private val weatherItemLiveData = MutableLiveData<ArrayList<WeatherItem>>()
-    private val weatherCityLiveData = MutableLiveData<WeatherCity>()
-    private val kakaoWebItemLiveData = MutableLiveData<ArrayList<KakaoWebItem>>()
+    val weatherItemLiveData = MutableLiveData<ArrayList<WeatherItem>>()
+    val weatherCityLiveData = MutableLiveData<WeatherCity>()
+    val kakaoWebItemLiveData = MutableLiveData<ArrayList<KakaoWebItem>>()
 
-    fun observeWeatherItem() = weatherItemLiveData
-    fun observeWeatherCity() = weatherCityLiveData
-    fun observeKakaoWebItem() = kakaoWebItemLiveData
+    val moveToExternalBrowserEvent = MutableLiveData<KakaoWebItem>()
+
+    fun onClickWebItem(kakaoWebItem: KakaoWebItem) {
+        moveToExternalBrowserEvent.postValue(kakaoWebItem)
+    }
 
     fun requestWeather() {
 

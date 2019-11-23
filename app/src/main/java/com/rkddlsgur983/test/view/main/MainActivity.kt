@@ -1,5 +1,7 @@
 package com.rkddlsgur983.test.view.main
 
+import android.content.Intent
+import android.net.Uri
 import android.view.inputmethod.EditorInfo
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -14,6 +16,7 @@ class MainActivity: BaseActivity<ActivityMainBinding>() {
 
     override val layoutRes = R.layout.activity_main
     private val mainViewModel = MainViewModel(MainRepositoryImpl())
+    private lateinit var kakaoWebAdapter: KakaoWebAdapter
 
     override fun onDataBinding() {
         // mainViewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
@@ -25,9 +28,11 @@ class MainActivity: BaseActivity<ActivityMainBinding>() {
         super.setupView()
         initEdSearch()
         initRecyclerView()
+        observeMainViewModel()
     }
 
     private fun initEdSearch() {
+
         binding.edSearch.setOnEditorActionListener { _, actionId, _ ->
             when (actionId) {
                 EditorInfo.IME_ACTION_SEARCH -> {
@@ -48,15 +53,33 @@ class MainActivity: BaseActivity<ActivityMainBinding>() {
             binding.recyclerView.context,
             linearLayoutManager.orientation
         )
-        val kakaoWebAdapter = KakaoWebAdapter()
+        kakaoWebAdapter = KakaoWebAdapter(mainViewModel)
         binding.recyclerView.apply {
             layoutManager = linearLayoutManager
             adapter = kakaoWebAdapter
             addItemDecoration(decoration)
         }
+    }
 
-        mainViewModel.observeKakaoWebItem().observe(this, Observer {
-            kakaoWebAdapter.addAll(it)
-        })
+    private fun observeMainViewModel() {
+
+        val owner = this
+        with(mainViewModel) {
+            kakaoWebItemLiveData.observe(owner, Observer { kakaoWebItemList ->
+                kakaoWebAdapter.addAll(kakaoWebItemList)
+            })
+
+            moveToExternalBrowserEvent.observe(owner, Observer { kakaoWebItem ->
+                moveToExternalBrowser(kakaoWebItem.url)
+            })
+        }
+    }
+
+    private fun moveToExternalBrowser(url: String) {
+
+        if (url.compareTo("") != 0) {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+            startActivity(intent)
+        }
     }
 }

@@ -37,7 +37,7 @@ class MainViewModelTest {
     fun `WeatherAPI 수신 데이터가 7개인지 테스트`() {
         // when
         val weatherItemList = ArrayList<WeatherItem>()
-        mainViewModel.observeWeatherItem().observeForever {
+        mainViewModel.weatherItemLiveData.observeForever {
             weatherItemList.addAll(it)
         }
         mainViewModel.requestWeather()
@@ -50,7 +50,7 @@ class MainViewModelTest {
     fun `WeatherAPI 요청 지역이 모스크바인지 테스트`() {
         // when
         var weatherCityName = ""
-        mainViewModel.observeWeatherCity().observeForever {
+        mainViewModel.weatherCityLiveData.observeForever {
             weatherCityName = it.name
         }
         mainViewModel.requestWeather()

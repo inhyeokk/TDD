@@ -31,7 +31,7 @@ class KakaoWebBindingAdapter {
         fun convertDateFormat(textView: TextView, date: String) {
             val df = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ", Locale.KOREA)
             try {
-                val d = df.parse(date)
+                val d = df.parse(date)!!
                 val time = d.time
                 textView.text = BasicUtil.convertToDateFormat(time)
             } catch (e: ParseException) {

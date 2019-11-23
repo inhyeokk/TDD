@@ -6,6 +6,9 @@
 
     <data>
         <variable
+            name="viewModel"
+            type="com.rkddlsgur983.test.view.main.MainViewModel" />
+        <variable
             name="kakaoWebItem"
             type="com.rkddlsgur983.test.view.main.entity.KakaoWebItem" />
     </data>
@@ -14,15 +17,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/white"
-        android:padding="10dp">
+        android:padding="10dp"
+        android:onClick="@{() -> viewModel.onClickWebItem(kakaoWebItem)}">
 
         <TextView
             android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:text_bold="@{kakaoWebItem.title}"
             android:textColor="@color/royal_blue"
             android:textSize="15sp"
+            app:text_bold="@{kakaoWebItem.title}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -31,9 +35,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            app:url_decode="@{kakaoWebItem.url}"
             android:textColor="@color/lime_green"
             android:textSize="13sp"
+            app:url_decode="@{kakaoWebItem.url}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_title" />
 
@@ -43,8 +47,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:maxHeight="54dp"
-            app:text_bold="@{kakaoWebItem.contents}"
             android:textColor="@android:color/black"
+            app:text_bold="@{kakaoWebItem.contents}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_url" />
@@ -54,8 +58,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            app:convert_date_format="@{kakaoWebItem.dateTime}"
             android:textSize="12sp"
+            app:convert_date_format="@{kakaoWebItem.dateTime}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

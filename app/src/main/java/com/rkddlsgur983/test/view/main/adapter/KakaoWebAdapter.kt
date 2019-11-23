@@ -1,23 +1,21 @@
 package com.rkddlsgur983.test.view.main.adapter
 
-import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
+import androidx.annotation.LayoutRes
 import androidx.recyclerview.widget.RecyclerView
 import com.rkddlsgur983.test.BR
 import com.rkddlsgur983.test.R
+import com.rkddlsgur983.test.base.BaseViewHolder
 import com.rkddlsgur983.test.databinding.ItemKakaoWebBinding
+import com.rkddlsgur983.test.view.main.MainViewModel
 import com.rkddlsgur983.test.view.main.entity.KakaoWebItem
 
-class KakaoWebAdapter: RecyclerView.Adapter<KakaoWebAdapter.KakaoWebViewHolder>() {
+class KakaoWebAdapter(private val viewModel: MainViewModel): RecyclerView.Adapter<KakaoWebAdapter.KakaoWebViewHolder>() {
 
     private val kakaoWebItemList =  ArrayList<KakaoWebItem>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): KakaoWebViewHolder {
-        val layoutInflater = LayoutInflater.from(parent.context)
-        val binding: ItemKakaoWebBinding = DataBindingUtil.inflate(layoutInflater,
-            R.layout.item_kakao_web, parent, false)
-        return KakaoWebViewHolder(binding)
+        return KakaoWebViewHolder(viewModel, R.layout.item_kakao_web, parent)
     }
 
     override fun onBindViewHolder(holder: KakaoWebViewHolder, position: Int) {
@@ -38,8 +36,14 @@ class KakaoWebAdapter: RecyclerView.Adapter<KakaoWebAdapter.KakaoWebViewHolder>(
     }
 
     class KakaoWebViewHolder(
-        private val binding: ItemKakaoWebBinding
-    ): RecyclerView.ViewHolder(binding.root) {
+        viewModel: MainViewModel,
+        @LayoutRes layoutResId: Int,
+        parent: ViewGroup
+    ): BaseViewHolder<ItemKakaoWebBinding>(layoutResId, parent) {
+
+        init {
+            binding.viewModel = viewModel
+        }
 
         fun bind(kakaoWebItem: KakaoWebItem) {
             binding.setVariable(BR.kakaoWebItem, kakaoWebItem)

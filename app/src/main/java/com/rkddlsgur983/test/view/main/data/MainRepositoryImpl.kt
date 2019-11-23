@@ -26,7 +26,7 @@ class MainRepositoryImpl: MainRepository {
 
         val kakaoService: KakaoService = RetrofitManager.getRetrofitService(KakaoService::class.java)
         return kakaoService
-            .requestWeb(kakaoWebRequest.query, kakaoWebRequest.sort, kakaoWebRequest.page, kakaoWebRequest.size)
+            .requestWeb(kakaoWebRequest.query, kakaoWebRequest.sort.name, kakaoWebRequest.page, kakaoWebRequest.size)
             .subscribeOn(Schedulers.io())
     }
 }
