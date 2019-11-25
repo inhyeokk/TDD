@@ -11,7 +11,7 @@ import com.rkddlsgur983.test.view.main.entity.WeatherItem
 
 class WeatherAdapter: RecyclerView.Adapter<WeatherAdapter.WeatherViewHolder>() {
 
-    private val weatherItemList =  ArrayList<WeatherItem>()
+    private val weatherItemList =  mutableListOf<WeatherItem>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WeatherViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -26,7 +26,7 @@ class WeatherAdapter: RecyclerView.Adapter<WeatherAdapter.WeatherViewHolder>() {
 
     override fun getItemCount() = weatherItemList.size
 
-    fun addAll(weatherItemList: ArrayList<WeatherItem>) {
+    fun addAll(weatherItemList: MutableList<WeatherItem>) {
         val oldSize = itemCount
         this.weatherItemList.addAll(weatherItemList)
         notifyItemRangeInserted(oldSize, weatherItemList.size)

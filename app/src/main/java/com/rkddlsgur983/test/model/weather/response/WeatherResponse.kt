@@ -1,7 +1,6 @@
 package com.rkddlsgur983.test.model.weather.response
 
 import com.google.gson.annotations.SerializedName
-import java.util.ArrayList
 
 data class WeatherResponse(
     @SerializedName("cod") val code: String,

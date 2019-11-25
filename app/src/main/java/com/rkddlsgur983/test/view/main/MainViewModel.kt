@@ -19,9 +19,9 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 class MainViewModel(private val repo: MainRepository): BaseViewModel() {
 
     private val TAG = MainViewModel::class.java.name
-    val weatherItemLiveData = MutableLiveData<ArrayList<WeatherItem>>()
+    val weatherItemLiveData = MutableLiveData<MutableList<WeatherItem>>()
     val weatherCityLiveData = MutableLiveData<WeatherCity>()
-    val kakaoWebItemLiveData = MutableLiveData<ArrayList<KakaoWebItem>>()
+    val kakaoWebItemLiveData = MutableLiveData<MutableList<KakaoWebItem>>()
 
     val moveToExternalBrowserEvent = MutableLiveData<KakaoWebItem>()
 
@@ -44,7 +44,7 @@ class MainViewModel(private val repo: MainRepository): BaseViewModel() {
 
     private fun handleWeatherResponse(response: WeatherResponse) {
 
-        val items = ArrayList<WeatherItem>()
+        val items = mutableListOf<WeatherItem>()
         for (weather in response.weatherDataList) {
             items.add(WeatherItem(
                 date = BasicUtil.convertToDateFormat(weather.date),
@@ -56,13 +56,13 @@ class MainViewModel(private val repo: MainRepository): BaseViewModel() {
         weatherCityLiveData.postValue(response.weatherCity)
     }
 
-    fun requestKakaoWeb(query: String) {
+    fun requestKakaoWeb(query: String, size: Int) {
 
         val kakaoWebRequest = KakaoWebRequest(
             query = query,
             sort = KakaoWebSortType.ACCURACY,
             page = 1,
-            size = 10
+            size = size
         )
         registerDisposable(
             repo.requestKakaoWeb(kakaoWebRequest)
@@ -73,7 +73,7 @@ class MainViewModel(private val repo: MainRepository): BaseViewModel() {
 
     private fun handleKakaoWebResponse(response: KakaoWebResponse) {
 
-        val itemList = ArrayList<KakaoWebItem>()
+        val itemList = mutableListOf<KakaoWebItem>()
         for (document: KakaoWebDocument in response.documentList) {
             itemList.add(KakaoWebItem(
                 title = document.title,

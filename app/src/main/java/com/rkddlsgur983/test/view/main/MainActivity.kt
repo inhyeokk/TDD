@@ -36,7 +36,7 @@ class MainActivity: BaseActivity<ActivityMainBinding>() {
         binding.edSearch.setOnEditorActionListener { _, actionId, _ ->
             when (actionId) {
                 EditorInfo.IME_ACTION_SEARCH -> {
-                    mainViewModel.requestKakaoWeb(binding.edSearch.text.toString())
+                    mainViewModel.requestKakaoWeb(binding.edSearch.text.toString(), 10)
                     true
                 }
                 else -> {

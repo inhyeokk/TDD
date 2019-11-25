@@ -12,7 +12,7 @@ import com.rkddlsgur983.test.view.main.entity.KakaoWebItem
 
 class KakaoWebAdapter(private val viewModel: MainViewModel): RecyclerView.Adapter<KakaoWebAdapter.KakaoWebViewHolder>() {
 
-    private val kakaoWebItemList =  ArrayList<KakaoWebItem>()
+    private val kakaoWebItemList = mutableListOf<KakaoWebItem>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): KakaoWebViewHolder {
         return KakaoWebViewHolder(viewModel, R.layout.item_kakao_web, parent)
@@ -24,7 +24,7 @@ class KakaoWebAdapter(private val viewModel: MainViewModel): RecyclerView.Adapte
 
     override fun getItemCount() = kakaoWebItemList.size
 
-    fun addAll(kakaoWebItemList: ArrayList<KakaoWebItem>) {
+    fun addAll(kakaoWebItemList: MutableList<KakaoWebItem>) {
         val oldSize = itemCount
         this.kakaoWebItemList.addAll(kakaoWebItemList)
         notifyItemRangeInserted(oldSize, kakaoWebItemList.size)
