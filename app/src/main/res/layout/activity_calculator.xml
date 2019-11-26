@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".view.calculator.CalculatorActivity">
+
+    <data>
+        <import type="com.rkddlsgur983.test.view.calculator.entity.OperatorType" />
+        <variable
+            name="vm"
+            type="com.rkddlsgur983.test.view.calculator.CalculatorViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/btn_plus"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="+"
+            android:onClick="@{() -> vm.onOperatorClick(OperatorType.PLUS)}"
+            app:layout_constraintBottom_toTopOf="@+id/ed_first"
+            app:layout_constraintEnd_toStartOf="@+id/btn_minus"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/btn_minus"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="-"
+            android:onClick="@{() -> vm.onOperatorClick(OperatorType.MINUS)}"
+            app:layout_constraintBottom_toTopOf="@+id/ed_first"
+            app:layout_constraintEnd_toStartOf="@+id/btn_multiple"
+            app:layout_constraintStart_toEndOf="@+id/btn_plus"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/btn_multiple"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="*"
+            android:onClick="@{() -> vm.onOperatorClick(OperatorType.MULTIPLE)}"
+            app:layout_constraintBottom_toTopOf="@+id/ed_first"
+            app:layout_constraintEnd_toStartOf="@+id/btn_divide"
+            app:layout_constraintStart_toEndOf="@+id/btn_minus"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/btn_divide"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="/"
+            android:onClick="@{() -> vm.onOperatorClick(OperatorType.DIVIDE)}"
+            app:layout_constraintBottom_toTopOf="@+id/ed_first"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/btn_multiple"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/ed_first"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:imeOptions="actionDone"
+            android:inputType="number"
+            android:gravity="center"
+            android:text="@{vm.firstText}"
+            android:maxLines="1"
+            android:minWidth="100dp"
+            app:layout_constraintBottom_toTopOf="@+id/tv_result"
+            app:layout_constraintEnd_toStartOf="@+id/tv_operator"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_plus" />
+
+        <TextView
+            android:id="@+id/tv_operator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{vm.operatorText}"
+            app:layout_constraintBottom_toTopOf="@+id/tv_result"
+            app:layout_constraintEnd_toStartOf="@+id/ed_second"
+            app:layout_constraintStart_toEndOf="@+id/ed_first"
+            app:layout_constraintTop_toBottomOf="@+id/btn_plus" />
+
+        <EditText
+            android:id="@+id/ed_second"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:imeOptions="actionDone"
+            android:inputType="number"
+            android:gravity="center"
+            android:text="@{vm.secondText}"
+            android:maxLines="1"
+            android:minWidth="100dp"
+            app:layout_constraintBottom_toTopOf="@+id/tv_result"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tv_operator"
+            app:layout_constraintTop_toBottomOf="@+id/btn_plus" />
+
+        <TextView
+            android:id="@+id/tv_result"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{vm.resultText}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ed_first" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
