@@ -7,10 +7,10 @@
     <data>
         <variable
             name="viewModel"
-            type="com.rkddlsgur983.test.view.main.MainViewModel" />
+            type="com.rkddlsgur983.test.view.kakao.web.KakaoWebViewModel" />
         <variable
             name="kakaoWebItem"
-            type="com.rkddlsgur983.test.view.main.entity.KakaoWebItem" />
+            type="com.rkddlsgur983.test.view.kakao.entity.KakaoWebItem" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -1,4 +1,4 @@
-package com.rkddlsgur983.test.view.main.adapter
+package com.rkddlsgur983.test.view.kakao.web.adapter
 
 import android.util.Log
 import android.widget.TextView

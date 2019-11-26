@@ -14,7 +14,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".view.main.MainActivity">
+        <activity android:name=".view.main.MainActivity" />
+        <activity android:name=".view.hello.HelloActivity" />
+        <activity android:name=".view.weather.WeatherActivity" />
+        <activity android:name=".view.kakao.web.KakaoWebActivity" />
+        <activity android:name=".view.calculator.CalculatorActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
@@ -22,7 +26,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.calculator.CalculatorActivity" />
     </application>
 
 </manifest>

@@ -6,8 +6,11 @@
 
     <data>
         <variable
+            name="vm"
+            type="com.rkddlsgur983.test.view.weather.WeatherViewModel" />
+        <variable
             name="weatherItem"
-            type="com.rkddlsgur983.test.view.main.entity.WeatherItem" />
+            type="com.rkddlsgur983.test.view.weather.entity.WeatherItem" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

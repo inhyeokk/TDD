@@ -1,4 +1,4 @@
-package com.rkddlsgur983.test.view.main.adapter
+package com.rkddlsgur983.test.view.kakao.web.adapter
 
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
@@ -7,10 +7,10 @@ import com.rkddlsgur983.test.BR
 import com.rkddlsgur983.test.R
 import com.rkddlsgur983.test.base.BaseViewHolder
 import com.rkddlsgur983.test.databinding.ItemKakaoWebBinding
-import com.rkddlsgur983.test.view.main.MainViewModel
-import com.rkddlsgur983.test.view.main.entity.KakaoWebItem
+import com.rkddlsgur983.test.view.kakao.web.KakaoWebViewModel
+import com.rkddlsgur983.test.view.kakao.web.entity.KakaoWebItem
 
-class KakaoWebAdapter(private val viewModel: MainViewModel): RecyclerView.Adapter<KakaoWebAdapter.KakaoWebViewHolder>() {
+class KakaoWebAdapter(private val viewModel: KakaoWebViewModel): RecyclerView.Adapter<KakaoWebAdapter.KakaoWebViewHolder>() {
 
     private val kakaoWebItemList = mutableListOf<KakaoWebItem>()
 
@@ -36,7 +36,7 @@ class KakaoWebAdapter(private val viewModel: MainViewModel): RecyclerView.Adapte
     }
 
     class KakaoWebViewHolder(
-        viewModel: MainViewModel,
+        viewModel: KakaoWebViewModel,
         @LayoutRes layoutResId: Int,
         parent: ViewGroup
     ): BaseViewHolder<ItemKakaoWebBinding>(layoutResId, parent) {
