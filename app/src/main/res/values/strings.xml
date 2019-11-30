@@ -3,4 +3,14 @@
 
     <!-- activity_kakao_web -->
     <string name="main_ed_search">검색어 또는 URL 입력</string>
+
+    <!-- fragment_login -->
+    <string name="login_tv_id">ID</string>
+    <string name="login_ed_id">이메일 입력</string>
+    <string name="login_tv_pw">PW</string>
+    <string name="login_ed_pw">비밀번호 입력</string>
+    <string name="login_btn_login">로그인</string>
+    <string name="login_tv_join">회원가입 하기 ></string>
+    <string name="login_toast_wrong_type">잘못된 형식입니다.</string>
+    <string name="login_toast_pw_minimum">비밀번호는 최소 6자리 입력해주세요.</string>
 </resources>
