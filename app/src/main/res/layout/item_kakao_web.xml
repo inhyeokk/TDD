@@ -10,7 +10,7 @@
             type="com.rkddlsgur983.test.view.kakao.web.KakaoWebViewModel" />
         <variable
             name="kakaoWebItem"
-            type="com.rkddlsgur983.test.view.kakao.entity.KakaoWebItem" />
+            type="com.rkddlsgur983.test.view.kakao.web.entity.KakaoWebItem" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

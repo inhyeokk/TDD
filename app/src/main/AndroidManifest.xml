@@ -18,7 +18,8 @@
         <activity android:name=".view.hello.HelloActivity" />
         <activity android:name=".view.weather.WeatherActivity" />
         <activity android:name=".view.kakao.web.KakaoWebActivity" />
-        <activity android:name=".view.calculator.CalculatorActivity">
+        <activity android:name=".view.calculator.CalculatorActivity" />
+        <activity android:name=".view.login.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
@@ -26,7 +27,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.login.LoginActivity" />
     </application>
 
 </manifest>

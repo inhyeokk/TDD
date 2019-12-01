@@ -2,7 +2,7 @@ package com.rkddlsgur983.test.view.weather
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.rkddlsgur983.test.RxSchedulerRule
-import com.rkddlsgur983.test.util.BasicUtil
+import com.rkddlsgur983.test.util.BasicUtils
 import com.rkddlsgur983.test.view.weather.data.WeatherRepositoryImpl
 import org.junit.Before
 import org.junit.Rule
@@ -56,7 +56,7 @@ class WeatherViewModelTest {
     @Test
     fun `날짜가 형식에 맞게 표시되는지 테스트`() {
         // when
-        val date = BasicUtil.convertToDateFormat(1485766800)
+        val date = BasicUtils.convertToDateFormat(1485766800)
         val dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm:ss", Locale.KOREA)
         val localDateTime = LocalDateTime.parse(date, dateTimeFormatter)
         val result = localDateTime.format(dateTimeFormatter)

@@ -13,4 +13,6 @@
     <string name="login_tv_join">회원가입 하기 ></string>
     <string name="login_toast_wrong_type">잘못된 형식입니다.</string>
     <string name="login_toast_pw_minimum">비밀번호는 최소 6자리 입력해주세요.</string>
+    <string name="login_toast_login_click">로그인 버튼이 클릭되었습니다.</string>
+    <string name="login_toast_join_click"><u>회원가입 버튼이 클릭되었습니다.</u></string>
 </resources>

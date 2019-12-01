@@ -6,7 +6,7 @@ import com.rkddlsgur983.test.base.BaseViewModel
 import com.rkddlsgur983.test.model.weather.request.WeatherRequest
 import com.rkddlsgur983.test.model.weather.response.WeatherCity
 import com.rkddlsgur983.test.model.weather.response.WeatherResponse
-import com.rkddlsgur983.test.util.BasicUtil
+import com.rkddlsgur983.test.util.BasicUtils
 import com.rkddlsgur983.test.view.weather.domain.WeatherRepository
 import com.rkddlsgur983.test.view.weather.entity.WeatherItem
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -36,7 +36,7 @@ class WeatherViewModel(private val repo: WeatherRepository):BaseViewModel() {
         for (weather in response.weatherDataList) {
             items.add(
                 WeatherItem(
-                    date = BasicUtil.convertToDateFormat(weather.date),
+                    date = BasicUtils.convertToDateFormat(weather.date),
                     main = weather.detail[0].main,
                     description = weather.detail[0].description
                 )

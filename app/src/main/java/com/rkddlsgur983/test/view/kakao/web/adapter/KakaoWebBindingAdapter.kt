@@ -4,7 +4,7 @@ import android.util.Log
 import android.widget.TextView
 import androidx.core.text.HtmlCompat
 import androidx.databinding.BindingAdapter
-import com.rkddlsgur983.test.util.BasicUtil
+import com.rkddlsgur983.test.util.BasicUtils
 import java.net.URLDecoder
 import java.text.ParseException
 import java.text.SimpleDateFormat
@@ -33,7 +33,7 @@ class KakaoWebBindingAdapter {
             try {
                 val d = df.parse(date)!!
                 val time = d.time
-                textView.text = BasicUtil.convertToDateFormat(time)
+                textView.text = BasicUtils.convertToDateFormat(time)
             } catch (e: ParseException) {
                 Log.e("ParseError", e.message!!)
             }
