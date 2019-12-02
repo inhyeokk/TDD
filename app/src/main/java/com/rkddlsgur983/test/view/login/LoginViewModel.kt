@@ -1,9 +1,10 @@
 package com.rkddlsgur983.test.view.login
 
-import android.util.Patterns
 import androidx.lifecycle.MutableLiveData
 import com.rkddlsgur983.test.base.BaseViewModel
+import com.rkddlsgur983.test.view.login.extension.isValidEmail
 import com.rkddlsgur983.test.view.login.entity.LoginType
+import com.rkddlsgur983.test.view.login.extension.isValidPassword
 
 class LoginViewModel: BaseViewModel() {
 
@@ -13,6 +14,11 @@ class LoginViewModel: BaseViewModel() {
 
     val loginClickEvent = MutableLiveData<LoginType>()
     val joinClickEvent = MutableLiveData<Boolean>()
+
+    init {
+        onUpdateId("")
+        onUpdatePassword("")
+    }
 
     fun onUpdateId(value: String) {
         id.value = value
@@ -32,11 +38,13 @@ class LoginViewModel: BaseViewModel() {
         loginClickEvent.value = checkLogin()
     }
 
-    private fun String.isValidEmail() = Patterns.EMAIL_ADDRESS.matcher(this).matches()
-
-    private fun checkLogin() = if (!id.value.toString().isValidEmail()) {
+    private fun checkLogin() = if (id.value.toString().isEmpty()) {
+        LoginType.NONE_EMAIL
+    } else if (password.value.toString().isEmpty()) {
+        LoginType.NONE_PASSWORD
+    } else if (!id.value.toString().isValidEmail()) {
         LoginType.INVALID_EMAIL
-    } else if (password.value.toString().length < 6) {
+    } else if (!password.value.toString().isValidPassword()) {
         LoginType.INVALID_PASSWORD
     } else {
         LoginType.VALID

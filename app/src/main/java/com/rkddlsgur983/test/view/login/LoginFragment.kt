@@ -46,8 +46,10 @@ class LoginFragment : Fragment() {
             loginClickEvent.observe(owner, Observer { loginType ->
                 when (loginType) {
                     LoginType.VALID -> BasicUtils.showToast(owner.context, getString(R.string.login_toast_login_click))
-                    LoginType.INVALID_EMAIL -> BasicUtils.showToast(owner.context, getString(R.string.login_toast_wrong_type))
-                    LoginType.INVALID_PASSWORD -> BasicUtils.showToast(owner.context, getString(R.string.login_toast_pw_minimum))
+                    LoginType.INVALID_EMAIL -> BasicUtils.showToast(owner.context, getString(R.string.login_toast_invalid_email))
+                    LoginType.INVALID_PASSWORD -> BasicUtils.showToast(owner.context, getString(R.string.login_toast_invalid_password))
+                    LoginType.NONE_EMAIL -> BasicUtils.showToast(owner.context, getString(R.string.login_toast_none_email))
+                    LoginType.NONE_PASSWORD -> BasicUtils.showToast(owner.context, getString(R.string.login_toast_none_password))
                     else -> {}
                 }
             })

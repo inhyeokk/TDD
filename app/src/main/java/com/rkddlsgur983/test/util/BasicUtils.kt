@@ -1,7 +1,6 @@
 package com.rkddlsgur983.test.util
 
 import android.content.Context
-import android.util.Patterns
 import android.widget.Toast
 import java.text.SimpleDateFormat
 import java.util.*
@@ -18,11 +17,6 @@ class BasicUtils {
         
         fun showToast(context: Context?, msg: String) {
             Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
-        }
-
-        fun isValidEmail(target: CharSequence?) = when (target.isNullOrBlank()) {
-            true -> false
-            false -> Patterns.EMAIL_ADDRESS.matcher(target).matches()
         }
     }
 }
