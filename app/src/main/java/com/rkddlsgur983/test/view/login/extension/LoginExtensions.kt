@@ -12,6 +12,9 @@ private val EMAIL_ADDRESS_PATTERN = Pattern.compile(
             ")+"
 )
 
-fun String.isValidEmail() = EMAIL_ADDRESS_PATTERN.matcher(this).matches()
+fun String.isValidEmail() = when(this.isEmpty()) {
+    true -> false
+    false -> EMAIL_ADDRESS_PATTERN.matcher(this).matches()
+}
 
 fun String.isValidPassword() = this.length >= 6

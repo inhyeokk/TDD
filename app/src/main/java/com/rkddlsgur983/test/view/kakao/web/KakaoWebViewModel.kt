@@ -1,5 +1,6 @@
 package com.rkddlsgur983.test.view.kakao.web
 
+import android.app.Application
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.rkddlsgur983.test.base.BaseViewModel
@@ -13,11 +14,12 @@ import com.rkddlsgur983.test.view.kakao.web.entity.KakaoWebItem
 import com.rkddlsgur983.test.view.weather.entity.WeatherItem
 import io.reactivex.android.schedulers.AndroidSchedulers
 
-class KakaoWebViewModel(private val repo: KakaoWebRepository): BaseViewModel() {
+class KakaoWebViewModel(
+    application: Application,
+    private val repo: KakaoWebRepository
+): BaseViewModel(application) {
 
     private val TAG = KakaoWebViewModel::class.java.name
-    val weatherItemLiveData = MutableLiveData<MutableList<WeatherItem>>()
-    val weatherCityLiveData = MutableLiveData<WeatherCity>()
     val kakaoWebItemLiveData = MutableLiveData<MutableList<KakaoWebItem>>()
 
     val moveToExternalBrowserEvent = MutableLiveData<KakaoWebItem>()
@@ -34,11 +36,10 @@ class KakaoWebViewModel(private val repo: KakaoWebRepository): BaseViewModel() {
             page = 1,
             size = size
         )
-        registerDisposable(
-            repo.requestKakaoWeb(kakaoWebRequest)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::handleKakaoWebResponse, this::handleError)
-        )
+        repo.requestKakaoWeb(kakaoWebRequest)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(this::handleKakaoWebResponse, this::handleError)
+            .register()
     }
 
     private fun handleKakaoWebResponse(response: KakaoWebResponse) {

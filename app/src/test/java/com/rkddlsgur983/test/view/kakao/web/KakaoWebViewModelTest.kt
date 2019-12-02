@@ -1,5 +1,6 @@
 package com.rkddlsgur983.test.view.kakao.web
 
+import android.app.Application
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.rkddlsgur983.test.RxSchedulerRule
 import com.rkddlsgur983.test.view.kakao.web.data.KakaoWebRepositoryImpl
@@ -9,6 +10,7 @@ import org.junit.Test
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Rule
+import org.mockito.Mock
 
 class KakaoWebViewModelTest {
 
@@ -16,6 +18,9 @@ class KakaoWebViewModelTest {
     var instantExecutorRule = InstantTaskExecutorRule()
     @get:Rule
     val rxSchedulerRule = RxSchedulerRule()
+
+    @Mock
+    lateinit var mockApplication: Application
 
     private lateinit var kakaoWebViewModel: KakaoWebViewModel
 
@@ -25,10 +30,7 @@ class KakaoWebViewModelTest {
     }
 
     private fun initKakaoWebViewModel() {
-        kakaoWebViewModel =
-            KakaoWebViewModel(
-                KakaoWebRepositoryImpl()
-            )
+        kakaoWebViewModel = KakaoWebViewModel(mockApplication, KakaoWebRepositoryImpl())
     }
 
     @Test

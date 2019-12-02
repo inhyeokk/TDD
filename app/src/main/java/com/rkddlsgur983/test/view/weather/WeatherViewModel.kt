@@ -1,5 +1,6 @@
 package com.rkddlsgur983.test.view.weather
 
+import android.app.Application
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.rkddlsgur983.test.base.BaseViewModel
@@ -11,7 +12,10 @@ import com.rkddlsgur983.test.view.weather.domain.WeatherRepository
 import com.rkddlsgur983.test.view.weather.entity.WeatherItem
 import io.reactivex.android.schedulers.AndroidSchedulers
 
-class WeatherViewModel(private val repo: WeatherRepository):BaseViewModel() {
+class WeatherViewModel(
+    application: Application,
+    private val repo: WeatherRepository
+):BaseViewModel(application) {
 
     private val TAG = "WEATHER_VIEW_MODEL"
     val weatherItemLiveData = MutableLiveData<MutableList<WeatherItem>>()
@@ -23,11 +27,10 @@ class WeatherViewModel(private val repo: WeatherRepository):BaseViewModel() {
             id = "524901",
             appId = "b1b15e88fa797225412429c1c50c122a1"
         )
-        registerDisposable(
-            repo.requestWeather(weatherRequest)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::handleWeatherResponse, this::handleError)
-        )
+        repo.requestWeather(weatherRequest)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(this::handleWeatherResponse, this::handleError)
+            .register()
     }
 
     private fun handleWeatherResponse(response: WeatherResponse) {

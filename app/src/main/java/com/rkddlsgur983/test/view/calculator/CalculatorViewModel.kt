@@ -1,12 +1,13 @@
 package com.rkddlsgur983.test.view.calculator
 
+import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import com.rkddlsgur983.test.base.BaseViewModel
 import com.rkddlsgur983.test.view.calculator.entity.OperatorType
 
-class CalculatorViewModel: BaseViewModel() {
+class CalculatorViewModel(application: Application): BaseViewModel(application) {
 
     val firstText = MutableLiveData<String>()
     val secondText = MutableLiveData<String>()

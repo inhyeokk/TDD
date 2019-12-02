@@ -15,7 +15,7 @@ import com.rkddlsgur983.test.view.kakao.web.data.KakaoWebRepositoryImpl
 class KakaoWebActivity: BaseActivity<ActivityKakaoWebBinding>() {
 
     override val layoutRes = R.layout.activity_kakao_web
-    private val kakaoWebViewModel = KakaoWebViewModel(KakaoWebRepositoryImpl())
+    private val kakaoWebViewModel = KakaoWebViewModel(application, KakaoWebRepositoryImpl())
     private lateinit var kakaoWebAdapter: KakaoWebAdapter
 
     override fun onDataBinding() {

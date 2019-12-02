@@ -1,5 +1,6 @@
 package com.rkddlsgur983.test.view.hello
 
+import android.app.Application
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 
 import org.junit.Before
@@ -7,17 +8,21 @@ import org.junit.Rule
 import org.junit.Test
 
 import org.junit.Assert.*
+import org.mockito.Mock
 
 class HelloViewModelTest {
 
     @get:Rule
     var instantExecutorRule = InstantTaskExecutorRule()
 
+    @Mock
+    lateinit var mockApplication: Application
+
     private lateinit var helloViewModel: HelloViewModel
 
     @Before
     fun init() {
-        helloViewModel = HelloViewModel()
+        helloViewModel = HelloViewModel(mockApplication)
     }
 
     @Test

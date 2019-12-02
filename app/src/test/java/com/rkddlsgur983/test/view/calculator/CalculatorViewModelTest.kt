@@ -1,5 +1,6 @@
 package com.rkddlsgur983.test.view.calculator
 
+import android.app.Application
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.rkddlsgur983.test.RxSchedulerRule
 import com.rkddlsgur983.test.view.calculator.entity.OperatorType
@@ -8,6 +9,7 @@ import org.junit.Rule
 import org.junit.Test
 
 import org.junit.Assert.*
+import org.mockito.Mock
 
 class CalculatorViewModelTest {
 
@@ -15,6 +17,9 @@ class CalculatorViewModelTest {
     var instantExecutorRule = InstantTaskExecutorRule()
     @get:Rule
     val rxSchedulerRule = RxSchedulerRule()
+
+    @Mock
+    lateinit var mockApplication: Application
 
     private lateinit var calculatorViewModel: CalculatorViewModel
 
@@ -24,7 +29,7 @@ class CalculatorViewModelTest {
     }
 
     private fun initCalculatorViewModel() {
-        calculatorViewModel = CalculatorViewModel()
+        calculatorViewModel = CalculatorViewModel(mockApplication)
     }
 
     @Test

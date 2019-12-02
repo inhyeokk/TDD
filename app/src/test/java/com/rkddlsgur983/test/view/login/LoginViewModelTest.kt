@@ -1,47 +1,58 @@
 package com.rkddlsgur983.test.view.login
 
+import android.app.Application
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import com.rkddlsgur983.test.R
 import com.rkddlsgur983.test.RxSchedulerRule
-import com.rkddlsgur983.test.view.login.entity.LoginType
+import com.rkddlsgur983.test.view.login.entity.ViewType
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
 import org.junit.Assert.*
+import org.junit.runner.RunWith
+import org.mockito.Mock
+import org.mockito.Mockito.`when`
+import org.mockito.junit.MockitoJUnitRunner
 
+@RunWith(MockitoJUnitRunner::class)
 class LoginViewModelTest {
+
+    companion object {
+        private const val INVALID_EMAIL = "잘못된 형식입니다."
+        private const val INVALID_PASSWORD = "비밀번호는 최소 6자리 입력해주세요."
+    }
 
     @get:Rule
     var instantExecutorRule = InstantTaskExecutorRule()
     @get:Rule
     val rxSchedulerRule = RxSchedulerRule()
 
+    @Mock
+    lateinit var mockApplication: Application
+
     private lateinit var loginViewModel: LoginViewModel
 
     @Before
     fun init() {
+        initString()
         initLoginViewModel()
     }
 
+    private fun initString() {
+        `when`(mockApplication.getString(R.string.login_toast_invalid_email)).thenReturn(INVALID_EMAIL)
+        `when`(mockApplication.getString(R.string.login_toast_invalid_password)).thenReturn(INVALID_PASSWORD)
+    }
+
     private fun initLoginViewModel() {
-        loginViewModel = LoginViewModel()
+        loginViewModel = LoginViewModel(mockApplication)
     }
 
     @Test
     fun `(Given) 앱 실행 - 초기값 (When) x (Then) 버튼 비활성화 테스트`() {
 
-        loginViewModel.loginClickable.observeForever {
-            assertEquals(false, it)
-        }
-    }
-
-    @Test
-    fun `(Given) 앱 실행 - 초기값 (When) 로그인 버튼 클릭 (Then) 이메일 입력 토스트 출력 테스트`() {
-
-        loginViewModel.onLoginClick()
-
-        loginViewModel.loginClickEvent.observeForever {
-            assertEquals(LoginType.NONE_EMAIL, it)
+        loginViewModel.loginClickable.observeForever { clickable ->
+            assertEquals(false, clickable)
         }
     }
 
@@ -50,20 +61,8 @@ class LoginViewModelTest {
 
         loginViewModel.onUpdateId("a@b.com")
 
-        loginViewModel.loginClickable.observeForever {
-            assertEquals(false, it)
-        }
-    }
-
-    @Test
-    fun `(Given) 앱 실행 - 이메일 입력 (When) 로그인 버튼 클릭 (Then) 비밀번호 입력 토스트 출력 테스트`() {
-
-        loginViewModel.onUpdateId("a@b.com")
-
-        loginViewModel.onLoginClick()
-
-        loginViewModel.loginClickEvent.observeForever {
-            assertEquals(LoginType.NONE_PASSWORD, it)
+        loginViewModel.loginClickable.observeForever { clickable ->
+            assertEquals(false, clickable)
         }
     }
 
@@ -73,10 +72,15 @@ class LoginViewModelTest {
         loginViewModel.onUpdateId("abc")
         loginViewModel.onUpdatePassword("111111")
 
-        loginViewModel.onLoginClick()
+        loginViewModel.loginClickable.observeForever { clickable ->
+            assertEquals(true, clickable)
+            when (clickable) {
+                true -> loginViewModel.onLoginClick()
+            }
+        }
 
-        loginViewModel.loginClickEvent.observeForever {
-            assertEquals(LoginType.INVALID_EMAIL, it)
+        loginViewModel.showMessageEvent.observeForever { message ->
+            assertEquals(INVALID_EMAIL, message)
         }
     }
 
@@ -86,15 +90,15 @@ class LoginViewModelTest {
         loginViewModel.onUpdateId("a@b.com")
         loginViewModel.onUpdatePassword("1111")
 
-        loginViewModel.loginClickable.observeForever {
-            assertEquals(true, it)
-            when (it) {
+        loginViewModel.loginClickable.observeForever { clickable ->
+            assertEquals(true, clickable)
+            when (clickable) {
                 true -> loginViewModel.onLoginClick()
             }
         }
 
-        loginViewModel.loginClickEvent.observeForever { loginType ->
-            assertEquals(LoginType.INVALID_PASSWORD, loginType)
+        loginViewModel.showMessageEvent.observeForever {
+            assertEquals(INVALID_PASSWORD, it)
         }
     }
 
@@ -104,15 +108,15 @@ class LoginViewModelTest {
         loginViewModel.onUpdateId("a@b.com")
         loginViewModel.onUpdatePassword("111111")
 
-        loginViewModel.loginClickable.observeForever {
-            assertEquals(true, it)
-            when (it) {
+        loginViewModel.loginClickable.observeForever { clickable ->
+            assertEquals(true, clickable)
+            when (clickable) {
                 true -> loginViewModel.onLoginClick()
             }
         }
 
-        loginViewModel.loginClickEvent.observeForever { loginType ->
-            assertEquals(LoginType.VALID, loginType)
+        loginViewModel.moveViewEvent.observeForever { viewType ->
+            assertEquals(ViewType.LOGIN, viewType)
         }
     }
 
@@ -121,8 +125,8 @@ class LoginViewModelTest {
 
         loginViewModel.onJoinClick()
 
-        loginViewModel.joinClickEvent.observeForever {
-            assertEquals(true, it)
+        loginViewModel.moveViewEvent.observeForever { viewType ->
+            assertEquals(ViewType.JOIN, viewType)
         }
     }
 }

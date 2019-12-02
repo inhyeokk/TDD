@@ -1,5 +1,6 @@
 package com.rkddlsgur983.test.view.weather
 
+import android.app.Application
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.rkddlsgur983.test.RxSchedulerRule
 import com.rkddlsgur983.test.util.BasicUtils
@@ -9,6 +10,7 @@ import org.junit.Rule
 import org.junit.Test
 
 import org.junit.Assert.*
+import org.mockito.Mock
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
@@ -20,6 +22,9 @@ class WeatherViewModelTest {
     @get:Rule
     val rxSchedulerRule = RxSchedulerRule()
 
+    @Mock
+    lateinit var mockApplication: Application
+
     private lateinit var weatherViewModel: WeatherViewModel
 
     @Before
@@ -28,7 +33,7 @@ class WeatherViewModelTest {
     }
 
     private fun initWeatherViewModel() {
-        weatherViewModel = WeatherViewModel(WeatherRepositoryImpl())
+        weatherViewModel = WeatherViewModel(mockApplication, WeatherRepositoryImpl())
     }
 
     @Test

@@ -11,12 +11,12 @@ import com.rkddlsgur983.test.R
 
 import com.rkddlsgur983.test.databinding.FragmentLoginBinding
 import com.rkddlsgur983.test.util.BasicUtils
-import com.rkddlsgur983.test.view.login.entity.LoginType
+import com.rkddlsgur983.test.view.login.entity.ViewType
 
 class LoginFragment : Fragment() {
 
     private lateinit var binding: FragmentLoginBinding
-    private val loginViewModel = LoginViewModel()
+    private val loginViewModel = LoginViewModel(activity!!.application)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,19 +43,16 @@ class LoginFragment : Fragment() {
                 }
             })
 
-            loginClickEvent.observe(owner, Observer { loginType ->
-                when (loginType) {
-                    LoginType.VALID -> BasicUtils.showToast(owner.context, getString(R.string.login_toast_login_click))
-                    LoginType.INVALID_EMAIL -> BasicUtils.showToast(owner.context, getString(R.string.login_toast_invalid_email))
-                    LoginType.INVALID_PASSWORD -> BasicUtils.showToast(owner.context, getString(R.string.login_toast_invalid_password))
-                    LoginType.NONE_EMAIL -> BasicUtils.showToast(owner.context, getString(R.string.login_toast_none_email))
-                    LoginType.NONE_PASSWORD -> BasicUtils.showToast(owner.context, getString(R.string.login_toast_none_password))
-                    else -> {}
-                }
+            showMessageEvent.observe(owner, Observer { message ->
+                BasicUtils.showToast(owner.context, message)
             })
 
-            joinClickEvent.observe(owner, Observer {
-                BasicUtils.showToast(owner.context, getString(R.string.login_toast_join_click))
+            moveViewEvent.observe(owner, Observer { viewType ->
+                when (viewType) {
+                    ViewType.LOGIN -> BasicUtils.showToast(owner.context, getString(R.string.login_toast_login_click))
+                    ViewType.JOIN -> BasicUtils.showToast(owner.context, getString(R.string.login_toast_join_click))
+                    else -> {}
+                }
             })
         }
     }
