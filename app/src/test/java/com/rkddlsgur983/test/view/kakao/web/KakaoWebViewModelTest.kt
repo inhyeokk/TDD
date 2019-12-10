@@ -19,9 +19,6 @@ class KakaoWebViewModelTest {
     @get:Rule
     val rxSchedulerRule = RxSchedulerRule()
 
-    @Mock
-    lateinit var mockApplication: Application
-
     private lateinit var kakaoWebViewModel: KakaoWebViewModel
 
     @Before
@@ -30,7 +27,7 @@ class KakaoWebViewModelTest {
     }
 
     private fun initKakaoWebViewModel() {
-        kakaoWebViewModel = KakaoWebViewModel(mockApplication, KakaoWebRepositoryImpl())
+        kakaoWebViewModel = KakaoWebViewModel(KakaoWebRepositoryImpl())
     }
 
     @Test

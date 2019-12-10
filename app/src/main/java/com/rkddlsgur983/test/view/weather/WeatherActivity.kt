@@ -10,7 +10,7 @@ import com.rkddlsgur983.test.view.weather.data.WeatherRepositoryImpl
 
 class WeatherActivity: BaseActivity<ActivityWeatherBinding>() {
     override val layoutRes = R.layout.activity_weather
-    private val weatherViewModel = WeatherViewModel(application, WeatherRepositoryImpl())
+    private val weatherViewModel = WeatherViewModel(WeatherRepositoryImpl())
 
     override fun onDataBinding() {
         binding.vm = weatherViewModel

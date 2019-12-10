@@ -11,12 +11,13 @@ import com.rkddlsgur983.test.R
 
 import com.rkddlsgur983.test.databinding.FragmentLoginBinding
 import com.rkddlsgur983.test.util.BasicUtils
+import com.rkddlsgur983.test.view.login.data.ApplicationDelegateImpl
 import com.rkddlsgur983.test.view.login.entity.ViewType
 
 class LoginFragment : Fragment() {
 
     private lateinit var binding: FragmentLoginBinding
-    private val loginViewModel = LoginViewModel(activity!!.application)
+    private val loginViewModel = LoginViewModel(ApplicationDelegateImpl(activity!!.application))
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

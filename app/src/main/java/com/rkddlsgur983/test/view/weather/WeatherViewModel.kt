@@ -13,9 +13,8 @@ import com.rkddlsgur983.test.view.weather.entity.WeatherItem
 import io.reactivex.android.schedulers.AndroidSchedulers
 
 class WeatherViewModel(
-    application: Application,
     private val repo: WeatherRepository
-):BaseViewModel(application) {
+):BaseViewModel() {
 
     private val TAG = "WEATHER_VIEW_MODEL"
     val weatherItemLiveData = MutableLiveData<MutableList<WeatherItem>>()

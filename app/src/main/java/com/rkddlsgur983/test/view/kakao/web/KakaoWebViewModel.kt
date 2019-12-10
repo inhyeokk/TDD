@@ -1,6 +1,5 @@
 package com.rkddlsgur983.test.view.kakao.web
 
-import android.app.Application
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.rkddlsgur983.test.base.BaseViewModel
@@ -8,16 +7,13 @@ import com.rkddlsgur983.test.model.kakao.web.request.KakaoWebRequest
 import com.rkddlsgur983.test.model.kakao.web.request.KakaoWebSortType
 import com.rkddlsgur983.test.model.kakao.web.response.KakaoWebDocument
 import com.rkddlsgur983.test.model.kakao.web.response.KakaoWebResponse
-import com.rkddlsgur983.test.model.weather.response.WeatherCity
 import com.rkddlsgur983.test.view.kakao.web.domain.KakaoWebRepository
 import com.rkddlsgur983.test.view.kakao.web.entity.KakaoWebItem
-import com.rkddlsgur983.test.view.weather.entity.WeatherItem
 import io.reactivex.android.schedulers.AndroidSchedulers
 
 class KakaoWebViewModel(
-    application: Application,
     private val repo: KakaoWebRepository
-): BaseViewModel(application) {
+): BaseViewModel() {
 
     private val TAG = KakaoWebViewModel::class.java.name
     val kakaoWebItemLiveData = MutableLiveData<MutableList<KakaoWebItem>>()

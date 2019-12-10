@@ -8,21 +8,17 @@ import org.junit.Rule
 import org.junit.Test
 
 import org.junit.Assert.*
-import org.mockito.Mock
 
 class HelloViewModelTest {
 
     @get:Rule
     var instantExecutorRule = InstantTaskExecutorRule()
 
-    @Mock
-    lateinit var mockApplication: Application
-
     private lateinit var helloViewModel: HelloViewModel
 
     @Before
     fun init() {
-        helloViewModel = HelloViewModel(mockApplication)
+        helloViewModel = HelloViewModel()
     }
 
     @Test

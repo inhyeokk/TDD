@@ -1,15 +1,15 @@
 package com.rkddlsgur983.test.view.login
 
-import android.app.Application
 import androidx.annotation.StringRes
 import androidx.lifecycle.MutableLiveData
 import com.rkddlsgur983.test.R
 import com.rkddlsgur983.test.base.BaseViewModel
+import com.rkddlsgur983.test.view.login.domain.ApplicationDelegate
 import com.rkddlsgur983.test.view.login.extension.isValidEmail
 import com.rkddlsgur983.test.view.login.entity.ViewType
 import com.rkddlsgur983.test.view.login.extension.isValidPassword
 
-class LoginViewModel(application: Application): BaseViewModel(application) {
+class LoginViewModel(private val applicationDelegate: ApplicationDelegate): BaseViewModel() {
 
     val id = MutableLiveData<String>()
     val password = MutableLiveData<String>()
@@ -40,7 +40,7 @@ class LoginViewModel(application: Application): BaseViewModel(application) {
     }
 
     private fun onUpdateShowMessage(@StringRes stringResId: Int) {
-        showMessageEvent.value = getApplication<Application>().getString(stringResId)
+        showMessageEvent.value = applicationDelegate.getString(stringResId)
     }
 
     private fun onUpdateMoveView(viewType: ViewType) {

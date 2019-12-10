@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.rkddlsgur983.test.R
 import com.rkddlsgur983.test.RxSchedulerRule
+import com.rkddlsgur983.test.view.login.data.ApplicationDelegateImpl
 import com.rkddlsgur983.test.view.login.entity.ViewType
 import org.junit.Before
 import org.junit.Rule
@@ -45,7 +46,7 @@ class LoginViewModelTest {
     }
 
     private fun initLoginViewModel() {
-        loginViewModel = LoginViewModel(mockApplication)
+        loginViewModel = LoginViewModel(ApplicationDelegateImpl(mockApplication))
     }
 
     @Test

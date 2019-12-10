@@ -22,9 +22,6 @@ class WeatherViewModelTest {
     @get:Rule
     val rxSchedulerRule = RxSchedulerRule()
 
-    @Mock
-    lateinit var mockApplication: Application
-
     private lateinit var weatherViewModel: WeatherViewModel
 
     @Before
@@ -33,7 +30,7 @@ class WeatherViewModelTest {
     }
 
     private fun initWeatherViewModel() {
-        weatherViewModel = WeatherViewModel(mockApplication, WeatherRepositoryImpl())
+        weatherViewModel = WeatherViewModel(WeatherRepositoryImpl())
     }
 
     @Test

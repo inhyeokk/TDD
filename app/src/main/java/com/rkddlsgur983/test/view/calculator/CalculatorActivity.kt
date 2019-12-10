@@ -6,7 +6,7 @@ import com.rkddlsgur983.test.databinding.ActivityCalculatorBinding
 
 class CalculatorActivity : BaseActivity<ActivityCalculatorBinding>() {
     override val layoutRes = R.layout.activity_calculator
-    private val calculatorViewModel = CalculatorViewModel(application)
+    private val calculatorViewModel = CalculatorViewModel()
 
     override fun onDataBinding() {
         binding.vm = calculatorViewModel

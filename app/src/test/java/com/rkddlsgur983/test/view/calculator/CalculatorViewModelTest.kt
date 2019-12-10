@@ -9,7 +9,6 @@ import org.junit.Rule
 import org.junit.Test
 
 import org.junit.Assert.*
-import org.mockito.Mock
 
 class CalculatorViewModelTest {
 
@@ -17,9 +16,6 @@ class CalculatorViewModelTest {
     var instantExecutorRule = InstantTaskExecutorRule()
     @get:Rule
     val rxSchedulerRule = RxSchedulerRule()
-
-    @Mock
-    lateinit var mockApplication: Application
 
     private lateinit var calculatorViewModel: CalculatorViewModel
 
@@ -29,7 +25,7 @@ class CalculatorViewModelTest {
     }
 
     private fun initCalculatorViewModel() {
-        calculatorViewModel = CalculatorViewModel(mockApplication)
+        calculatorViewModel = CalculatorViewModel()
     }
 
     @Test
