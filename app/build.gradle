@@ -44,7 +44,7 @@ dependencies {
 
     // DataBinding
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    kapt "androidx.databinding:databinding-compiler:3.5.2"
+    kapt "androidx.databinding:databinding-compiler:3.5.3"
 
     // Retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.6.2'
