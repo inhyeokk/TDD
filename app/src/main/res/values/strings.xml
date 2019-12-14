@@ -17,4 +17,7 @@
     <string name="login_toast_none_password">비밀번호를 입력해주세요.</string>
     <string name="login_toast_login_click">로그인 버튼이 클릭되었습니다.</string>
     <string name="login_toast_join_click"><u>회원가입 버튼이 클릭되었습니다.</u></string>
+
+    <!-- activity_memo_list -->
+    <string name="memo_list_tv_title">메모</string>
 </resources>

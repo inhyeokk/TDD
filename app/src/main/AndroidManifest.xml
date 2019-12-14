@@ -19,7 +19,8 @@
         <activity android:name=".view.weather.WeatherActivity" />
         <activity android:name=".view.kakao.web.KakaoWebActivity" />
         <activity android:name=".view.calculator.CalculatorActivity" />
-        <activity android:name=".view.login.LoginActivity">
+        <activity android:name=".view.login.LoginActivity" />
+        <activity android:name=".view.memo.MemoListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
