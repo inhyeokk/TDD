@@ -20,4 +20,15 @@
 
     <!-- activity_memo_list -->
     <string name="memo_list_tv_title">메모</string>
+    <string name="memo_list_toast_none">저장된 메모가 없습니다.</string>
+
+    <!-- activity_memo_add -->
+    <string name="memo_add_tv_title">메모 추가</string>
+    <string name="memo_add_ed_title_hint">제목 입력</string>
+    <string name="memo_add_ed_contents_hint">메모 상세 내용을 입력하세요.</string>
+    <string name="memo_add_tv_complete">완료</string>
+
+    <!-- activity_memo_detail -->
+    <string name="memo_detail_tv_title">메모 상세</string>
+    <string name="memo_detail_none_contents">입력된 내용이 없습니다.</string>
 </resources>
