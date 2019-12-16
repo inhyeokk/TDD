@@ -24,6 +24,11 @@ class MemoAdapter(private val viewModel: MemoListViewModel): RecyclerView.Adapte
 
     override fun getItemCount() = memoItemList.size
 
+    fun add(memoItem: MemoItem) {
+        memoItemList.add(memoItem)
+        notifyItemInserted(itemCount-1)
+    }
+
     fun addAll(memoItemList: MutableList<MemoItem>) {
         val oldSize = itemCount
         this.memoItemList.addAll(memoItemList)

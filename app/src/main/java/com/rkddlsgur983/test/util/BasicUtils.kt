@@ -14,6 +14,8 @@ class BasicUtils {
             val format = SimpleDateFormat("yyyy.MM.dd HH:mm:ss", Locale.KOREA)
             return format.format(date)
         }
+
+        fun getTime() = convertToDateFormat(Calendar.getInstance().time.time)
         
         fun showToast(context: Context?, msg: String) {
             Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()

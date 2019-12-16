@@ -1,5 +1,6 @@
 package com.rkddlsgur983.test.view.memo
 
+import android.app.Activity
 import android.content.Intent
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -13,6 +14,12 @@ import com.rkddlsgur983.test.view.memo.adapter.MemoAdapter
 import com.rkddlsgur983.test.view.memo.entity.MemoViewType
 
 class MemoListActivity: BaseActivity<ActivityMemoListBinding>() {
+
+    companion object {
+        const val REQUEST_MEMO_ADD = 1001
+        const val REQUEST_MEMO_DETAIL = 1002
+    }
+
     override val layoutRes = R.layout.activity_memo_list
     private lateinit var memoListViewModel:MemoListViewModel
     private lateinit var memoAdapter: MemoAdapter
@@ -60,13 +67,26 @@ class MemoListActivity: BaseActivity<ActivityMemoListBinding>() {
         when (viewType) {
             MemoViewType.ADD -> {
                 val intent = Intent(this, MemoAddActivity::class.java)
-                startActivity(intent)
+                startActivityForResult(intent, REQUEST_MEMO_ADD)
             }
             MemoViewType.DETAIL -> {
                 val intent = Intent(this, MemoDetailActivity::class.java)
-                startActivity(intent)
+                startActivityForResult(intent, REQUEST_MEMO_DETAIL)
             }
             else -> {}
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        when (requestCode) {
+            REQUEST_MEMO_ADD -> {
+                when (resultCode) {
+                    Activity.RESULT_OK -> {
+                        memoAdapter.add(data!!.getParcelableExtra(MemoAddActivity.EXTRA_MEMO_ITEM)!!)
+                    }
+                }
+            }
         }
     }
 }

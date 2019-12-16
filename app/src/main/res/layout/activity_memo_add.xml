@@ -5,9 +5,82 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".view.memo.MemoAddActivity">
 
+    <data>
+        <variable
+            name="vm"
+            type="com.rkddlsgur983.test.view.memo.MemoAddViewModel" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@+id/ed_title"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/ed_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
+            android:hint="@string/memo_add_ed_title_hint"
+            android:inputType="text"
+            android:text="@{vm.title}"
+            app:layout_constraintBottom_toTopOf="@+id/spinner_category"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+        <androidx.appcompat.widget.AppCompatSpinner
+            android:id="@+id/spinner_category"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            app:layout_constraintBottom_toTopOf="@+id/ed_contents"
+            app:layout_constraintTop_toBottomOf="@+id/ed_title" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/ed_contents"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            android:gravity="top|start"
+            android:hint="@string/memo_add_ed_contents_hint"
+            android:inputType="text"
+            android:maxLength="300"
+            android:text="@{vm.contents}"
+            app:layout_constraintBottom_toTopOf="@+id/tv_contents_length"
+            app:layout_constraintTop_toBottomOf="@+id/spinner_category" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_contents_length"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:layout_marginEnd="20dp"
+            android:text="@string/memo_add_tv_contents_length"
+            android:textColor="@android:color/black"
+            app:layout_constraintBottom_toTopOf="@+id/btn_complete"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ed_contents"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_complete"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@drawable/selector_btn_login"
+            android:gravity="center"
+            android:onClick="@{() -> vm.onCompleteClick()}"
+            android:text="@string/memo_add_tv_complete"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_contents_length"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
