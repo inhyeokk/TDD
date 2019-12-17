@@ -64,7 +64,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
             android:layout_marginEnd="20dp"
-            android:text="@string/memo_add_tv_contents_length"
+            android:text="@{vm.contentsLength}"
             android:textColor="@android:color/black"
             app:layout_constraintBottom_toTopOf="@+id/btn_complete"
             app:layout_constraintEnd_toEndOf="parent"

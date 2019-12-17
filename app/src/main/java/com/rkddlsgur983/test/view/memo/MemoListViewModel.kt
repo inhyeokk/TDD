@@ -16,7 +16,12 @@ class MemoListViewModel(private val applicationDelegate: ApplicationDelegate): B
     val moveViewEvent = MutableLiveData<MemoViewType>()
 
     init {
+        onUpdateMemoItemList(mutableListOf())
         onLoadMemoFromDatabase()
+    }
+
+    fun onUpdateMemoItemList(list: MutableList<MemoItem>) {
+        memoItemList.value = list
     }
 
     private fun onUpdateShowMessage(@StringRes stringResId: Int) {
