@@ -52,7 +52,7 @@
             android:layout_marginStart="10dp"
             android:gravity="top|start"
             android:hint="@string/memo_add_ed_contents_hint"
-            android:inputType="text"
+            android:inputType="textMultiLine"
             android:maxLength="300"
             android:text="@{vm.contents}"
             app:layout_constraintBottom_toTopOf="@+id/tv_contents_length"
