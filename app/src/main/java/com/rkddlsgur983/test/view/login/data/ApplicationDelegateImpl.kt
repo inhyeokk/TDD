@@ -9,6 +9,6 @@ class ApplicationDelegateImpl(private val application: Application): Application
     }
 
     override fun getString(stringResId: Int, vararg formatArgs: Any): String {
-        return application.resources.getString(stringResId, *formatArgs)
+        return application.getString(stringResId, *formatArgs)
     }
 }
