@@ -3,6 +3,8 @@ package com.rkddlsgur983.test.view.memo
 import android.app.Application
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.rkddlsgur983.test.R
+import com.rkddlsgur983.test.model.memo.MemoDatabase
+import com.rkddlsgur983.test.model.memo.data.MemoRepository
 import com.rkddlsgur983.test.view.login.data.ApplicationDelegateImpl
 import com.rkddlsgur983.test.view.memo.entity.MemoViewType
 import org.junit.Before
@@ -41,7 +43,10 @@ class MemoListViewModelTest {
     }
 
     private fun initMemoListViewModel() {
-        memoListViewModel = MemoListViewModel(ApplicationDelegateImpl(mockApplication))
+        memoListViewModel = MemoListViewModel(
+            ApplicationDelegateImpl(mockApplication),
+            MemoRepository(MemoDatabase.getDatabase(mockApplication))
+        )
     }
 
     @Test

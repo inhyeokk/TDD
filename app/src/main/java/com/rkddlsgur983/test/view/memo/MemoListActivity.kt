@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.rkddlsgur983.test.R
 import com.rkddlsgur983.test.base.BaseActivity
 import com.rkddlsgur983.test.databinding.ActivityMemoListBinding
+import com.rkddlsgur983.test.model.memo.MemoDatabase
+import com.rkddlsgur983.test.model.memo.data.MemoRepository
 import com.rkddlsgur983.test.util.BasicUtils
 import com.rkddlsgur983.test.view.login.data.ApplicationDelegateImpl
 import com.rkddlsgur983.test.view.memo.adapter.MemoAdapter
@@ -25,7 +27,10 @@ class MemoListActivity: BaseActivity<ActivityMemoListBinding>() {
     private lateinit var memoAdapter: MemoAdapter
 
     override fun onDataBinding() {
-        memoListViewModel = MemoListViewModel(ApplicationDelegateImpl(application))
+        memoListViewModel = MemoListViewModel(
+            ApplicationDelegateImpl(application),
+            MemoRepository(MemoDatabase.getDatabase(this))
+        )
         binding.vm = memoListViewModel
         super.onDataBinding()
     }
@@ -54,6 +59,9 @@ class MemoListActivity: BaseActivity<ActivityMemoListBinding>() {
 
         val owner = this
         with(memoListViewModel) {
+            memoItemListLiveData.observe(owner, Observer {
+                memoAdapter.addAll(it)
+            })
             showMessageEvent.observe(owner, Observer {
                 BasicUtils.showToast(owner, it)
             })
