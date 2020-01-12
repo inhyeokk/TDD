@@ -6,12 +6,13 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.rkddlsgur983.test.model.memo.entity.Memo
+import io.reactivex.Completable
 
 @Dao
 interface MemoDao {
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insert(memo: Memo)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insert(memo: Memo): Completable
 
     @Query(value = "SELECT * FROM memo WHERE id = :id")
     fun getMemo(id: Int): LiveData<Memo>

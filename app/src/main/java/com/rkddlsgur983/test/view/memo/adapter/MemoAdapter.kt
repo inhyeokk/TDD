@@ -35,6 +35,12 @@ class MemoAdapter(private val viewModel: MemoListViewModel): RecyclerView.Adapte
         notifyItemRangeInserted(oldSize, memoItemList.size)
     }
 
+    fun reset(memoItemList: MutableList<MemoItem>) {
+        this.memoItemList.clear()
+        this.memoItemList.addAll(memoItemList)
+        notifyDataSetChanged()
+    }
+
     fun clear() {
         memoItemList.clear()
         notifyDataSetChanged()

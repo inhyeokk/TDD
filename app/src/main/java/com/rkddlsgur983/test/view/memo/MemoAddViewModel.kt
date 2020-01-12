@@ -1,13 +1,26 @@
 package com.rkddlsgur983.test.view.memo
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.rkddlsgur983.test.R
 import com.rkddlsgur983.test.base.BaseViewModel
+import com.rkddlsgur983.test.model.memo.data.MemoRepository
+import com.rkddlsgur983.test.model.memo.entity.Memo
+import com.rkddlsgur983.test.util.BasicUtils
 import com.rkddlsgur983.test.view.login.domain.ApplicationDelegate
 import com.rkddlsgur983.test.view.memo.entity.MemoCategory
 import com.rkddlsgur983.test.view.memo.entity.MemoViewType
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 
-class MemoAddViewModel(private val applicationDelegate: ApplicationDelegate): BaseViewModel() {
+class MemoAddViewModel(
+    private val applicationDelegate: ApplicationDelegate,
+    private val memoRepository: MemoRepository
+): BaseViewModel() {
+
+    companion object {
+        private val TAG = MemoAddViewModel::class.java.name
+    }
 
     val title = MutableLiveData<String>()
     val category = MutableLiveData<MemoCategory>()
@@ -55,6 +68,19 @@ class MemoAddViewModel(private val applicationDelegate: ApplicationDelegate): Ba
     }
 
     fun onCompleteClick() {
-        onUpdateMoveView(MemoViewType.LIST)
+        insertMemo()
+    }
+
+    private fun insertMemo() {
+        memoRepository.insert(Memo(0, title.value!!, category.value!!, contents.value!!, BasicUtils.getTime()))
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                onUpdateMoveView(MemoViewType.LIST)
+            }, this::handleError).register()
+    }
+
+    private fun handleError(throwable: Throwable) {
+        Log.e(TAG, throwable.message!!)
     }
 }

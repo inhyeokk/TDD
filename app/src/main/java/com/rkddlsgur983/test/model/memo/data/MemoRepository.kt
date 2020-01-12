@@ -7,11 +7,7 @@ class MemoRepository(database: MemoDatabase) {
 
     private val memoDao = database.memoDao()
 
-    fun insert(memo: Memo) {
-        MemoDatabase.databaseWriteExecutor.execute {
-            memoDao.insert(memo)
-        }
-    }
+    fun insert(memo: Memo) = memoDao.insert(memo)
 
     fun getMemo(id: Int) = memoDao.getMemo(id)
 

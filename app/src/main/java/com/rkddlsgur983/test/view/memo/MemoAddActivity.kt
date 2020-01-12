@@ -1,7 +1,5 @@
 package com.rkddlsgur983.test.view.memo
 
-import android.app.Activity
-import android.content.Intent
 import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
@@ -11,22 +9,21 @@ import androidx.lifecycle.Observer
 import com.rkddlsgur983.test.R
 import com.rkddlsgur983.test.base.BaseActivity
 import com.rkddlsgur983.test.databinding.ActivityMemoAddBinding
-import com.rkddlsgur983.test.util.BasicUtils
+import com.rkddlsgur983.test.model.memo.MemoDatabase
+import com.rkddlsgur983.test.model.memo.data.MemoRepository
 import com.rkddlsgur983.test.view.login.data.ApplicationDelegateImpl
 import com.rkddlsgur983.test.view.memo.entity.MemoCategory
-import com.rkddlsgur983.test.view.memo.entity.MemoItem
 
 class MemoAddActivity: BaseActivity<ActivityMemoAddBinding>() {
-
-    companion object {
-        const val EXTRA_MEMO_ITEM = "EXTRA_MEMO_ITEM"
-    }
 
     override val layoutRes = R.layout.activity_memo_add
     private lateinit var memoAddViewModel: MemoAddViewModel
 
     override fun onDataBinding() {
-        memoAddViewModel = MemoAddViewModel(ApplicationDelegateImpl(application))
+        memoAddViewModel = MemoAddViewModel(
+            ApplicationDelegateImpl(application),
+            MemoRepository(MemoDatabase.getDatabase(this))
+        )
         binding.vm = memoAddViewModel
         super.onDataBinding()
     }
@@ -106,10 +103,6 @@ class MemoAddActivity: BaseActivity<ActivityMemoAddBinding>() {
             })
 
             moveViewEvent.observe(owner, Observer {
-                val intent = Intent()
-                val memoItem = MemoItem(binding.edTitle.text.toString(), MemoCategory.WORK_TO_DO, binding.edContents.text.toString(), BasicUtils.getTime())
-                intent.putExtra(EXTRA_MEMO_ITEM, memoItem)
-                setResult(Activity.RESULT_OK, intent)
                 finish()
             })
         }
