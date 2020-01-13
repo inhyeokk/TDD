@@ -11,7 +11,6 @@ import com.rkddlsgur983.test.base.BaseActivity
 import com.rkddlsgur983.test.databinding.ActivityMemoAddBinding
 import com.rkddlsgur983.test.model.memo.MemoDatabase
 import com.rkddlsgur983.test.model.memo.data.MemoRepository
-import com.rkddlsgur983.test.view.login.data.ApplicationDelegateImpl
 import com.rkddlsgur983.test.view.memo.entity.MemoCategory
 
 class MemoAddActivity: BaseActivity<ActivityMemoAddBinding>() {
@@ -21,7 +20,6 @@ class MemoAddActivity: BaseActivity<ActivityMemoAddBinding>() {
 
     override fun onDataBinding() {
         memoAddViewModel = MemoAddViewModel(
-            ApplicationDelegateImpl(application),
             MemoRepository(MemoDatabase.getDatabase(this))
         )
         binding.vm = memoAddViewModel
@@ -95,6 +93,10 @@ class MemoAddActivity: BaseActivity<ActivityMemoAddBinding>() {
 
         val owner = this
         with(memoAddViewModel) {
+            contentsLength.observe(owner, Observer {  length ->
+                binding.tvContentsLength.text = getString(R.string.memo_add_tv_contents_length, length)
+            })
+
             completeClickable.observe(owner, Observer {
                 binding.btnComplete.apply {
                     isClickable = it

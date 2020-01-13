@@ -2,19 +2,16 @@ package com.rkddlsgur983.test.view.memo
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
-import com.rkddlsgur983.test.R
 import com.rkddlsgur983.test.base.BaseViewModel
 import com.rkddlsgur983.test.model.memo.data.MemoRepository
 import com.rkddlsgur983.test.model.memo.entity.Memo
 import com.rkddlsgur983.test.util.BasicUtils
-import com.rkddlsgur983.test.view.login.domain.ApplicationDelegate
 import com.rkddlsgur983.test.view.memo.entity.MemoCategory
 import com.rkddlsgur983.test.view.memo.entity.MemoViewType
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
 class MemoAddViewModel(
-    private val applicationDelegate: ApplicationDelegate,
     private val memoRepository: MemoRepository
 ): BaseViewModel() {
 
@@ -25,7 +22,7 @@ class MemoAddViewModel(
     val title = MutableLiveData<String>()
     val category = MutableLiveData<MemoCategory>()
     val contents = MutableLiveData<String>()
-    val contentsLength = MutableLiveData<String>()
+    val contentsLength = MutableLiveData<Int>()
     val completeClickable = MutableLiveData<Boolean>()
 
     val moveViewEvent = MutableLiveData<MemoViewType>()
@@ -48,11 +45,11 @@ class MemoAddViewModel(
 
     fun onUpdateContents(value: String) {
         contents.value = value
-        onUpdateContentsLength(value.length.toString())
+        onUpdateContentsLength(value.length)
     }
 
-    private fun onUpdateContentsLength(value: String) {
-        contentsLength.value = applicationDelegate.getString(R.string.memo_add_tv_contents_length, value)
+    private fun onUpdateContentsLength(value: Int) {
+        contentsLength.value = value
     }
 
     /* 제목은 공백으로 저장될 수 없음

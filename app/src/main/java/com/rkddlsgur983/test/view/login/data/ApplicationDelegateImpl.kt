@@ -8,7 +8,7 @@ class ApplicationDelegateImpl(private val application: Application): Application
         return application.getString(stringResId)
     }
 
-    override fun getString(stringResId: Int, vararg formatArgs: Any): String {
-        return application.getString(stringResId, *formatArgs)
-    }
+//    override fun getString(stringResId: Int, vararg formatArgs: Any): String {
+//        return application.getString(stringResId, *formatArgs)
+//    }
 }

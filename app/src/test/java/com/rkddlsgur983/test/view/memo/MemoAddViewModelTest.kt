@@ -2,7 +2,9 @@ package com.rkddlsgur983.test.view.memo
 
 import android.app.Application
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.rkddlsgur983.test.view.login.data.ApplicationDelegateImpl
+import androidx.room.Room
+import com.rkddlsgur983.test.model.memo.MemoDatabase
+import com.rkddlsgur983.test.model.memo.data.MemoRepository
 import com.rkddlsgur983.test.view.memo.entity.MemoCategory
 import org.junit.Before
 import org.junit.Rule
@@ -16,10 +18,6 @@ import org.mockito.junit.MockitoJUnitRunner
 @RunWith(MockitoJUnitRunner::class)
 class MemoAddViewModelTest {
 
-    companion object {
-        private const val CONTENTS_LENGTH = "(7 / 300)"
-    }
-
     @get:Rule
     var instantExecutorRule = InstantTaskExecutorRule()
 
@@ -27,6 +25,7 @@ class MemoAddViewModelTest {
     lateinit var mockApplication: Application
 
     private lateinit var memoAddViewModel: MemoAddViewModel
+    private lateinit var db: MemoDatabase
 
     @Before
     fun init() {
@@ -34,7 +33,12 @@ class MemoAddViewModelTest {
     }
 
     private fun initViewModel() {
-        memoAddViewModel = MemoAddViewModel(ApplicationDelegateImpl(mockApplication))
+        db = Room.inMemoryDatabaseBuilder(
+            mockApplication, MemoDatabase::class.java
+        ).build()
+        memoAddViewModel = MemoAddViewModel(
+            MemoRepository(db)
+        )
     }
 
     @Test
@@ -71,7 +75,7 @@ class MemoAddViewModelTest {
         memoAddViewModel.onUpdateContents("상세내용 입력")
 
         memoAddViewModel.contentsLength.observeForever { contentsLength ->
-            assertEquals(CONTENTS_LENGTH, contentsLength)
+            assertEquals(7, contentsLength)
         }
     }
 
