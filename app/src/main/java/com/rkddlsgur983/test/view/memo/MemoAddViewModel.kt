@@ -2,6 +2,7 @@ package com.rkddlsgur983.test.view.memo
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
+import com.rkddlsgur983.test.R
 import com.rkddlsgur983.test.base.BaseViewModel
 import com.rkddlsgur983.test.model.memo.data.MemoRepository
 import com.rkddlsgur983.test.model.memo.entity.Memo
@@ -78,6 +79,6 @@ class MemoAddViewModel(
     }
 
     private fun handleError(throwable: Throwable) {
-        Log.e(TAG, throwable.message!!)
+
     }
 }

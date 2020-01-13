@@ -2,6 +2,7 @@ package com.rkddlsgur983.test.view.memo
 
 import android.app.Application
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.room.Room
 import com.rkddlsgur983.test.R
 import com.rkddlsgur983.test.model.memo.MemoDatabase
 import com.rkddlsgur983.test.model.memo.data.MemoRepository
@@ -31,6 +32,7 @@ class MemoListViewModelTest {
     lateinit var mockApplication: Application
 
     private lateinit var memoListViewModel: MemoListViewModel
+    private lateinit var db: MemoDatabase
 
     @Before
     fun init() {
@@ -43,14 +45,19 @@ class MemoListViewModelTest {
     }
 
     private fun initMemoListViewModel() {
+        db = Room.inMemoryDatabaseBuilder(
+            mockApplication, MemoDatabase::class.java
+        ).build()
         memoListViewModel = MemoListViewModel(
             ApplicationDelegateImpl(mockApplication),
-            MemoRepository(MemoDatabase.getDatabase(mockApplication))
+            MemoRepository(db)
         )
     }
 
     @Test
     fun `(Given) 앱 실행 - 초기값 (When) x (Then) 저장된 메모가 없을 경우 토스트 출력 테스트`() {
+
+        memoListViewModel.onLoadMemoFromDatabase()
 
         memoListViewModel.showMessageEvent.observeForever { message ->
             assertEquals(NONE_MEMO, message)
@@ -58,14 +65,9 @@ class MemoListViewModelTest {
     }
 
     @Test
-    fun `(Given) 앱 실행 - 데이터 불러옴 (When) x (Then) 저장된 메모가 한번에 20개씩 표시되는지 테스트`() {
-
-        memoListViewModel.onLoadMemoFromDatabase()
-
-    }
-
-    @Test
     fun `(Given) 앱 실행 - 초기값 (When) 추가 버튼 클릭 (Then) 메모추가 화면으로 이동 테스트`() {
+
+        memoListViewModel.onAddClick()
 
         memoListViewModel.moveViewEvent.observeForever { viewType ->
             assertEquals(MemoViewType.ADD, viewType)

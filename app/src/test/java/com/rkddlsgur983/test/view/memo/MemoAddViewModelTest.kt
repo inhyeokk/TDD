@@ -3,9 +3,11 @@ package com.rkddlsgur983.test.view.memo
 import android.app.Application
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.room.Room
+import com.rkddlsgur983.test.RxSchedulerRule
 import com.rkddlsgur983.test.model.memo.MemoDatabase
 import com.rkddlsgur983.test.model.memo.data.MemoRepository
 import com.rkddlsgur983.test.view.memo.entity.MemoCategory
+import com.rkddlsgur983.test.view.memo.entity.MemoViewType
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -20,6 +22,8 @@ class MemoAddViewModelTest {
 
     @get:Rule
     var instantExecutorRule = InstantTaskExecutorRule()
+    @get:Rule
+    val rxSchedulerRule = RxSchedulerRule()
 
     @Mock
     lateinit var mockApplication: Application
@@ -86,6 +90,20 @@ class MemoAddViewModelTest {
 
         memoAddViewModel.contents.observeForever { contents ->
             assertEquals(true, contents.length <= 300)
+        }
+    }
+
+    @Test
+    fun `(Given) 앱 실행 - 제목, 카테고리 입력 (When) 완료버튼 클릭 (Then) DB에 데이터 추가 후 리스트 화면으로 이동하는지 테스트`() {
+
+        with (memoAddViewModel) {
+            onUpdateTitle("테스트 제목")
+            onUpdateCategory(MemoCategory.ETC)
+        }
+        memoAddViewModel.onCompleteClick()
+
+        memoAddViewModel.moveViewEvent.observeForever {
+            assertEquals(true, MemoViewType.LIST)
         }
     }
 }
